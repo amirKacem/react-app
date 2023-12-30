@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.env
+complete-react-v8.code-workspace
+coverage/
+.vscode/
