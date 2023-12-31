@@ -7,17 +7,33 @@ on:
     branches: [master]
 
 jobs:
-  build-and-test:
+  unit-test:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
       - name: Setup Node
         uses: actions/setup-node@v3
+      - uses: action/cache@v3
+        id: npm-cache
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('**/package-lock.json')}}
+      - run: npm install
+      - run: npm run lint
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+      - uses: action/cache@v3
+        id: npm-cache
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('**/package-lock.json')}}
       - run: npm install
       - run: npm run lint
       - run: npm run build
-
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v2.0
         with:
