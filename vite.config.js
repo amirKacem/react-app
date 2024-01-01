@@ -5,6 +5,11 @@ export default defineConfig({
   plugins: [react()],
   root: "src",
   build: {
-    outDir: '../dist',
-  }
+    outDir: "../dist",
+  },
+  test: {
+    root: "./tests/",
+    environment: "happy-dom",
+    setupFiles: ["./setupVitest.js"],
+  },
 });
